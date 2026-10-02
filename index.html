@@ -7,6 +7,7 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <title>EverSmile Dental Clinic</title>
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/design-v2.css">
 </head>
 <body>
   <div class="app-shell">
@@ -28,6 +29,7 @@
         <div class="clinic-mini"><strong id="sideClinicName">EverSmile Dental Clinic</strong><span id="sideClinicInfo">Mon–Sat · 8:00 AM–6:00 PM<br>Local offline workspace</span></div>
       </div>
     </aside>
+    <button class="sidebar-scrim" id="sidebarScrim" aria-label="Close navigation"></button>
 
     <main class="main">
       <header class="topbar">
@@ -44,8 +46,8 @@
 
       <div class="content">
         <section class="view active" id="dashboardView">
-          <div class="section-head">
-            <div><h2>Clinic overview</h2><p>A quick look at today’s activity and patient flow.</p></div>
+          <div class="section-head dashboard-hero">
+            <div class="hero-copy"><div class="hero-kicker"><i></i>Today’s clinic command center</div><h2>Keep every smile on schedule.</h2><p>Monitor patient flow, appointments, and clinic activity from one calm workspace.</p></div>
             <div class="section-actions"><button class="btn btn-secondary" id="dashCalendarBtn"><span data-icon="calendar"></span>View calendar</button><button class="btn btn-primary add-appointment"><span data-icon="plus"></span>New appointment</button></div>
           </div>
           <div class="stats-grid" id="statsGrid"></div>

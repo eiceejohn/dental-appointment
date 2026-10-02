@@ -213,6 +213,7 @@
       const ds=e.target.closest('.delete-service');if(ds)confirmDialog('Delete this service?','Existing appointments will retain a general visit reference.',async()=>{await db.remove('services',ds.dataset.id);await refresh();toast('Service deleted');});
     });
     $('#menuBtn').onclick=()=>$('#sidebar').classList.toggle('open');
+    $('#sidebarScrim').onclick=()=>$('#sidebar').classList.remove('open');
     $('#dashCalendarBtn').onclick=()=>showView('calendar');
     $('#backupQuick').onclick=exportBackup;$('#exportBackup').onclick=exportBackup;
     ['apptSearch','apptStatusFilter','apptDateFilter'].forEach(id=>$('#'+id).addEventListener('input',renderAppointments));
