@@ -1,0 +1,14 @@
+.git
+.github
+.vscode
+node_modules
+
+# Never include exported patient information in the container image.
+dental-backup-*.json
+patients-*.csv
+appointments-*.csv
+
+# Local and operating-system files.
+Thumbs.db
+.DS_Store
+

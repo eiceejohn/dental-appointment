@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0c5b5e">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <title>EverSmile Dental Clinic</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark" data-icon="tooth"></div>
+        <div><strong id="brandName">EverSmile</strong><span>Dental Clinic</span></div>
+      </div>
+      <div class="nav-title">Workspace</div>
+      <nav class="nav" id="mainNav">
+        <button class="nav-btn active" data-view="dashboard"><span class="nav-icon" data-icon="grid"></span>Dashboard</button>
+        <button class="nav-btn" data-view="appointments"><span class="nav-icon" data-icon="calendar-check"></span>Appointments</button>
+        <button class="nav-btn" data-view="patients"><span class="nav-icon" data-icon="users"></span>Patients</button>
+        <button class="nav-btn" data-view="calendar"><span class="nav-icon" data-icon="calendar"></span>Calendar</button>
+        <button class="nav-btn" data-view="reports"><span class="nav-icon" data-icon="chart"></span>Reports</button>
+        <button class="nav-btn" data-view="settings"><span class="nav-icon" data-icon="settings"></span>Settings</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="clinic-mini"><strong id="sideClinicName">EverSmile Dental Clinic</strong><span id="sideClinicInfo">Mon–Sat · 8:00 AM–6:00 PM<br>Local offline workspace</span></div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div style="display:flex;align-items:center;gap:12px">
+          <button class="icon-btn mobile-menu" id="menuBtn" aria-label="Open menu" data-icon="menu"></button>
+          <div class="page-heading"><h1 id="pageTitle">Dashboard</h1><p id="todayLabel"></p></div>
+        </div>
+        <div class="top-actions">
+          <div class="search-shell"><span data-icon="search"></span><input id="globalSearch" placeholder="Search patients or appointments..."></div>
+          <span class="storage-badge" title="Data is saved in this browser"><i></i><span id="storageLabel">Database online</span></span>
+          <div class="user-chip"><div class="avatar">AD</div><div><strong>Clinic Admin</strong><span>Administrator</span></div></div>
+        </div>
+      </header>
+
+      <div class="content">
+        <section class="view active" id="dashboardView">
+          <div class="section-head">
+            <div><h2>Clinic overview</h2><p>A quick look at today’s activity and patient flow.</p></div>
+            <div class="section-actions"><button class="btn btn-secondary" id="dashCalendarBtn"><span data-icon="calendar"></span>View calendar</button><button class="btn btn-primary add-appointment"><span data-icon="plus"></span>New appointment</button></div>
+          </div>
+          <div class="stats-grid" id="statsGrid"></div>
+          <div class="grid-main">
+            <div class="card">
+              <div class="card-head"><div><h3>Today’s appointments</h3><span id="todayCountLabel">Loading schedule…</span></div><button class="btn btn-small btn-secondary" data-go="appointments">View all</button></div>
+              <div class="card-body" id="todaySchedule"></div>
+            </div>
+            <div style="display:grid;gap:18px;align-content:start">
+              <div class="card"><div class="card-head"><div><h3>Quick actions</h3><span>Common clinic tasks</span></div></div><div class="card-body"><div class="quick-actions">
+                <button class="quick-btn add-appointment"><span data-icon="calendar-plus"></span><strong>Book visit</strong><span>Schedule a patient</span></button>
+                <button class="quick-btn add-patient"><span data-icon="user-plus"></span><strong>Add patient</strong><span>Create a record</span></button>
+                <button class="quick-btn" data-go="reports"><span data-icon="chart"></span><strong>View reports</strong><span>Clinic performance</span></button>
+                <button class="quick-btn" id="backupQuick"><span data-icon="download"></span><strong>Back up data</strong><span>Export JSON file</span></button>
+              </div></div></div>
+              <div class="card"><div class="card-head"><div><h3>Upcoming visits</h3><span>Next seven days</span></div></div><div class="card-body mini-list" id="upcomingList"></div></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="view" id="appointmentsView">
+          <div class="section-head"><div><h2>Appointments</h2><p>Manage bookings, schedules, and treatment status.</p></div><div class="section-actions"><button class="btn btn-secondary" id="exportApptCsv"><span data-icon="download"></span>Export CSV</button><button class="btn btn-primary add-appointment"><span data-icon="plus"></span>New appointment</button></div></div>
+          <div class="filters"><div class="field-inline"><span data-icon="search"></span><input class="input" id="apptSearch" placeholder="Search patient, dentist, service..."></div><select class="select filter-control" id="apptStatusFilter"><option value="">All statuses</option><option>Pending</option><option>Confirmed</option><option>Completed</option><option>Cancelled</option><option>No-show</option></select><input class="input filter-control" type="date" id="apptDateFilter"><button class="btn btn-secondary" id="clearApptFilters">Clear</button></div>
+          <div class="table-card"><div class="table-wrap" id="appointmentsTable"></div></div>
+        </section>
+
+        <section class="view" id="patientsView">
+          <div class="section-head"><div><h2>Patients</h2><p>Contact details, medical notes, and visit history.</p></div><div class="section-actions"><button class="btn btn-secondary" id="exportPatientCsv"><span data-icon="download"></span>Export CSV</button><button class="btn btn-primary add-patient"><span data-icon="plus"></span>Add patient</button></div></div>
+          <div class="filters"><div class="field-inline"><span data-icon="search"></span><input class="input" id="patientSearch" placeholder="Search by name, phone, email..."></div><select class="select filter-control" id="patientSort"><option value="name">Sort: Name</option><option value="recent">Sort: Newest</option><option value="visits">Sort: Most visits</option></select></div>
+          <div class="patient-grid" id="patientsGrid"></div>
+        </section>
+
+        <section class="view" id="calendarView">
+          <div class="section-head"><div><h2>Clinic calendar</h2><p>Monthly schedule across every dentist and treatment.</p></div><div class="section-actions"><button class="btn btn-secondary" id="calendarToday">Today</button><button class="btn btn-primary add-appointment"><span data-icon="plus"></span>New appointment</button></div></div>
+          <div class="calendar-layout">
+            <div class="card calendar-card"><div class="calendar-toolbar"><h3 id="calendarMonth"></h3><div class="calendar-nav"><button class="icon-btn" id="calendarPrev" data-icon="chevron-left"></button><button class="icon-btn" id="calendarNext" data-icon="chevron-right"></button></div></div><div class="week-row"><div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div></div><div class="calendar-grid" id="calendarGrid"></div><div class="legend"><span><i style="background:#3e74a8"></i>Confirmed</span><span><i style="background:#b97720"></i>Pending</span><span><i style="background:#287a5d"></i>Completed</span><span><i style="background:#d05b5b"></i>Cancelled</span></div></div>
+            <div class="card agenda-side"><div class="card-head"><div><h3 id="agendaTitle">Selected day</h3><span>Appointment agenda</span></div></div><div class="card-body" id="dayAgenda"></div></div>
+          </div>
+        </section>
+
+        <section class="view" id="reportsView">
+          <div class="section-head"><div><h2>Reports & insights</h2><p>Live metrics generated from your local appointment database.</p></div><div class="section-actions"><select class="select filter-control" id="reportRange"><option value="30">Last 30 days</option><option value="90">Last 90 days</option><option value="365">Last 12 months</option><option value="all">All time</option></select><button class="btn btn-secondary" onclick="window.print()"><span data-icon="print"></span>Print report</button></div></div>
+          <div class="report-grid" id="reportCards"></div>
+          <div class="report-bottom">
+            <div class="card"><div class="card-head"><div><h3>Appointment volume</h3><span>Visits grouped by month</span></div></div><div class="card-body"><div class="bar-chart" id="volumeChart"></div></div></div>
+            <div class="card"><div class="card-head"><div><h3>Status breakdown</h3><span>Selected reporting period</span></div></div><div class="card-body"><div class="donut-wrap" id="statusDonut"></div><div class="legend" id="statusLegend"></div></div></div>
+          </div>
+        </section>
+
+        <section class="view" id="settingsView">
+          <div class="section-head"><div><h2>System settings</h2><p>Configure clinic information, team, services, and backups.</p></div></div>
+          <div class="settings-grid">
+            <div class="card settings-card"><h3>Clinic profile</h3><p>Used throughout the dashboard and exported reports.</p><form id="clinicForm" class="form-grid"><div class="form-group full"><label>Clinic name</label><input class="input" name="clinicName" required></div><div class="form-group"><label>Phone</label><input class="input" name="phone"></div><div class="form-group"><label>Email</label><input class="input" type="email" name="email"></div><div class="form-group full"><label>Address</label><textarea class="textarea" name="address"></textarea></div><div class="form-group"><label>Opening time</label><input class="input" type="time" name="openTime"></div><div class="form-group"><label>Closing time</label><input class="input" type="time" name="closeTime"></div><div class="form-group full"><button class="btn btn-primary" type="submit">Save clinic profile</button></div></form></div>
+            <div class="card settings-card"><h3>Data management</h3><p>Your information stays inside this browser unless exported.</p><div class="data-actions"><div class="data-action"><div><strong>Download backup</strong><span>Export all records as a JSON file</span></div><button class="btn btn-secondary" id="exportBackup"><span data-icon="download"></span>Export</button></div><div class="data-action"><div><strong>Restore backup</strong><span>Import a previously exported JSON file</span></div><button class="btn btn-secondary" id="importBackupBtn"><span data-icon="upload"></span>Import</button><input type="file" id="importBackup" accept="application/json" hidden></div><div class="data-action"><div><strong>Reset demo database</strong><span>Remove records and restore sample data</span></div><button class="btn btn-danger" id="resetDatabase">Reset</button></div></div></div>
+            <div class="card settings-card"><div style="display:flex;align-items:center;justify-content:space-between"><div><h3>Dentists</h3><p style="margin:5px 0 0;color:var(--muted);font-size:10px">Manage bookable clinic professionals.</p></div><button class="btn btn-small btn-secondary" id="addDentist"><span data-icon="plus"></span>Add</button></div><div class="item-list" id="dentistList"></div></div>
+            <div class="card settings-card"><div style="display:flex;align-items:center;justify-content:space-between"><div><h3>Services</h3><p style="margin:5px 0 0;color:var(--muted);font-size:10px">Treatment catalog, duration, and price.</p></div><button class="btn btn-small btn-secondary" id="addService"><span data-icon="plus"></span>Add</button></div><div class="item-list" id="serviceList"></div></div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div id="modalRoot"></div>
+  <div class="toast-stack" id="toastStack"></div>
+  <script src="js/db.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+{
+    admin off
+    persist_config off
+    auto_https off
+
+    log {
+        format json
+    }
+
+    servers {
+        trusted_proxies static 0.0.0.0/0 ::/0
+    }
+}
+
+:{$PORT:3000} {
+    log {
+        format json
+    }
+
+    @health path /health
+    respond @health "OK" 200
+
+    root * /srv
+    encode zstd gzip
+
+    header {
+        -Server
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "DENY"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        Permissions-Policy "camera=(), microphone=(), geolocation=()"
+        Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'"
+    }
+
+    try_files {path} /index.html
+    file_server
+}
+

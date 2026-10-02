@@ -1,0 +1,9 @@
+# Never commit files that may contain patient information.
+dental-backup-*.json
+patients-*.csv
+appointments-*.csv
+
+# Local operating-system files.
+.DS_Store
+Thumbs.db
+
